@@ -1,0 +1,402 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans, sans-serif); }
+.wrap { padding: 1rem 0; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
+.tab { font-size: 12px; padding: 5px 10px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); cursor: pointer; color: var(--color-text-secondary); background: var(--color-background-primary); transition: all .15s; }
+.tab:hover { background: var(--color-background-secondary); }
+.tab.active { background: var(--color-background-info); color: var(--color-text-info); border-color: var(--color-border-info); font-weight: 500; }
+.panel { display: none; }
+.panel.active { display: block; }
+.rule-box { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem; }
+.rule-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.rule-sub { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 12px; line-height: 1.5; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.exempt-col { background: var(--color-background-success); border: 0.5px solid var(--color-border-success); border-radius: var(--border-radius-md); padding: 10px 12px; }
+.taxable-col { background: var(--color-background-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 10px 12px; }
+.col-head { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+.col-head.e { color: var(--color-text-success); }
+.col-head.t { color: var(--color-text-danger); }
+.item { font-size: 12px; color: var(--color-text-primary); line-height: 1.6; padding: 2px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.item:last-child { border-bottom: none; }
+.trick { background: var(--color-background-warning); border-left: 2px solid var(--color-border-warning); border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 8px 12px; margin-top: 10px; font-size: 12px; color: var(--color-text-warning); line-height: 1.6; }
+.trick strong { font-weight: 500; }
+.limit-pill { display: inline-block; background: var(--color-background-info); color: var(--color-text-info); border-radius: 999px; font-size: 11px; padding: 2px 8px; margin-left: 4px; font-weight: 500; }
+.section-tag { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+</style>
+<div class="wrap">
+<div class="tabs">
+  <div class="tab active" onclick="show('principle')">Master Logic</div>
+  <div class="tab" onclick="show('charitable')">Charitable</div>
+  <div class="tab" onclick="show('religious')">Religious</div>
+  <div class="tab" onclick="show('agri')">Agriculture</div>
+  <div class="tab" onclick="show('edu')">Education</div>
+  <div class="tab" onclick="show('health')">Health</div>
+  <div class="tab" onclick="show('govt')">Government</div>
+  <div class="tab" onclick="show('transport')">Transport</div>
+  <div class="tab" onclick="show('finance')">Finance</div>
+  <div class="tab" onclick="show('others')">Others</div>
+</div>
+
+<div id="panel-principle" class="panel active">
+  <div class="rule-box">
+    <div class="rule-title">The 4 Master Patterns behind every GST exemption</div>
+    <div class="rule-sub">Every exam question can be cracked with these four lenses.</div>
+    <div style="display:grid;gap:8px;">
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;">
+        <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Pattern 1 — "Genuine need, no luxury upgrade"</div>
+        <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;">Basic version of a service = exempt. Upgraded/luxury version = taxable. AC coach vs non-AC. Room ₹999/day vs ₹1,000/day. Economy class vs business class. ₹7,500 maintenance vs ₹8,000.</div>
+      </div>
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;">
+        <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Pattern 2 — "Primary purpose must be noble"</div>
+        <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;">If the dominant activity is exempt (education, health, charity), the whole bundle is exempt. But if a trust is renting shops or putting ads — that's commercial activity bolted on to charity — taxable.</div>
+      </div>
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;">
+        <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Pattern 3 — "State institutions, public benefit"</div>
+        <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;">Government providing services in its sovereign capacity = exempt. But when government acts like a business (renting property, speed post, police for private events) = taxable. The test: is this something only a state can do?</div>
+      </div>
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;">
+        <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Pattern 4 — "Preserve the supply chain, not the final product"</div>
+        <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;">Agricultural exemptions protect the farm-to-market chain. The moment a service transforms produce into a value-added product (rice→rice flour, potato→chips, tomato→ketchup), it's no longer just transport/storage — it's manufacturing. Taxable.</div>
+      </div>
+    </div>
+  </div>
+  <div class="trick"><strong>Exam shortcut:</strong> When you see a borderline case, ask — "Is this serving the poor/sick/student/farmer in their basic capacity? Or is there a commercial motive hiding here?" That answer is almost always the GST answer.</div>
+</div>
+
+<div id="panel-charitable" class="panel">
+  <div class="rule-box">
+    <div class="rule-title">Charitable Activities — Sec 12AA / 12AB registered entities</div>
+    <div class="rule-sub">Memory hook: <strong>PAEP</strong> — Public Health · Advancement of Religion/Yoga · Educational Programmes for marginalized · Preservation of Environment. Only these 4 qualify as "charitable activities."</div>
+    <div class="cols">
+      <div class="exempt-col">
+        <div class="col-head e">Exempt</div>
+        <div class="item">Yoga / spirituality / meditation camps</div>
+        <div class="item">HIV counseling, addiction care, disability support</div>
+        <div class="item">Education: orphans, prisoners, abused persons, rural 65+</div>
+        <div class="item">Forest/wildlife preservation</div>
+        <div class="item">Old age home <span class="limit-pill">≤ ₹25k/month</span></div>
+        <div class="item">Import of services for charitable activities</div>
+        <div class="item">Doctor/paramedic services by charitable trust</div>
+        <div class="item">Name plate display (non-promotional)</div>
+      </div>
+      <div class="taxable-col">
+        <div class="col-head t">Taxable</div>
+        <div class="item">Renting commercial property</div>
+        <div class="item">Advertising rights on trust premises</div>
+        <div class="item">Admission tickets to events/shows</div>
+        <div class="item">Serving food/drinks against consideration</div>
+        <div class="item">Aerobics / dance / music fitness camps</div>
+        <div class="item">Services provided TO trust</div>
+        <div class="item">Name plate (if aimed at promoting donor's business)</div>
+        <div class="item">Old age home <span class="limit-pill" style="background:var(--color-background-danger);color:var(--color-text-danger);">&gt; ₹25k/month</span></div>
+      </div>
+    </div>
+    <div class="trick"><strong>Quick test:</strong> Does the activity fall in PAEP? Yes → exempt. No → taxable, even if done by the trust. The trust's registration doesn't make everything it does exempt.</div>
+  </div>
+</div>
+
+<div id="panel-religious" class="panel">
+  <div class="rule-box">
+    <div class="rule-title">Religious Services — precincts of religious place</div>
+    <div class="rule-sub">Memory hook: "Cheap rooms and small mandaps are for devotees. Expensive ones are for business events." Three thresholds drive all questions.</div>
+    <div class="cols">
+      <div class="exempt-col">
+        <div class="col-head e">Exempt</div>
+        <div class="item">Rooms <span class="limit-pill">below ₹1,000/day</span></div>
+        <div class="item">Halls/Kalyanmandapam <span class="limit-pill">below ₹10,000/day</span></div>
+        <div class="item">Shops for business <span class="limit-pill">below ₹10,000/month</span></div>
+        <div class="item">Conduct of religious ceremony by any person</div>
+        <div class="item">Religious pilgrimage by specified organisations (Kumaon Mandal Vikas, Haj Committee etc.)</div>
+      </div>
+      <div class="taxable-col">
+        <div class="col-head t">Taxable</div>
+        <div class="item">Rooms <span class="limit-pill" style="background:var(--color-background-danger);color:var(--color-text-danger);">≥ ₹1,000/day</span></div>
+        <div class="item">Halls/Kalyanmandapam <span class="limit-pill" style="background:var(--color-background-danger);color:var(--color-text-danger);">≥ ₹10,000/day</span></div>
+        <div class="item">Shops for business <span class="limit-pill" style="background:var(--color-background-danger);color:var(--color-text-danger);">≥ ₹10,000/month</span></div>
+      </div>
+    </div>
+    <div class="trick"><strong>Pattern:</strong> It's purely threshold-based. Just remember 1k/10k/10k (daily room / daily hall / monthly shop). At or above → taxable. Below → exempt. Community halls at ₹25,000/day are clearly ≥10k → taxable.</div>
+  </div>
+</div>
+
+<div id="panel-agri" class="panel">
+  <div class="rule-box">
+    <div class="rule-title">Agricultural Services</div>
+    <div class="rule-sub">Memory hook: <strong>"Farm-to-market is exempt. Farm-to-factory is taxable."</strong> Anything that keeps the produce in its natural state = exempt. Anything that transforms it into a new product = taxable.</div>
+    <div class="cols">
+      <div class="exempt-col">
+        <div class="col-head e">Exempt (natural state preserved)</div>
+        <div class="item">Loading, unloading, packing, warehousing of agricultural produce / rice</div>
+        <div class="item">Fumigation in warehouse</div>
+        <div class="item">Supply of farm labour</div>
+        <div class="item">Seed, soil, animal feed testing</div>
+        <div class="item">Renting agro machinery or vacant land</div>
+        <div class="item">Artificial insemination (non-horse livestock)</div>
+        <div class="item">Pre-cooling, ripening, waxing fruits/vegetables</div>
+        <div class="item">Pisciculture, Sericulture, Floriculture, Horticulture</div>
+        <div class="item">Agricultural extension services</div>
+        <div class="item">Warehousing of minor forest produce, spices, pulses (whole)</div>
+      </div>
+      <div class="taxable-col">
+        <div class="col-head t">Taxable (transformation happens)</div>
+        <div class="item">Milling paddy → rice</div>
+        <div class="item">Processing sugarcane → jaggery</div>
+        <div class="item">Potato → potato chips</div>
+        <div class="item">Tomato → ketchup</div>
+        <div class="item">Grinding, sterilizing, extraction for retail market</div>
+        <div class="item">Warehousing of black tea / green tea / coffee</div>
+        <div class="item">Warehousing of unmanufactured tobacco</div>
+        <div class="item">Loading/unloading/warehousing of black/green tea, coffee</div>
+        <div class="item">Services for de-husked or split pulses</div>
+        <div class="item">Renting shops by APMC (non-agricultural)</div>
+        <div class="item">Renting vacant land to stud farm (horses excluded)</div>
+      </div>
+    </div>
+    <div class="trick"><strong>Watch out:</strong> Spices, minor forest produce, whole pulses = exempt for warehousing. But unmanufactured tobacco = taxable (despite being a raw material). Tea and coffee = taxable for loading/warehousing but tea/coffee plants cultivation = exempt. Also, horses are always excluded from livestock exemptions.</div>
+  </div>
+</div>
+
+<div id="panel-edu" class="panel">
+  <div class="rule-box">
+    <div class="rule-title">Educational Services</div>
+    <div class="rule-sub">Memory hook: Think in 3 levels. <strong>Level 1</strong> (pre-school to Higher Secondary) = most exemptions apply. <strong>Level 2</strong> (Degree/law-recognised) = partial exemptions. <strong>Level 3</strong> (coaching/foreign/personality) = almost always taxable.</div>
+    <div class="cols">
+      <div class="exempt-col">
+        <div class="col-head e">Exempt</div>
+        <div class="item">BY educational institution: to students, faculty, staff</div>
+        <div class="item">BY educational institution: entrance examination fee</div>
+        <div class="item">TO pre-school/up to higher secondary: transport, catering (mid-day meals), security, cleaning</div>
+        <div class="item">TO any educational institution: admission/exam conduct services</div>
+        <div class="item">Online journals to degree/law-recognised institution (not pre-school)</div>
+        <div class="item">CBSE / State Boards / NTA: conduct of exams</div>
+        <div class="item">Boarding school (education + residence + food together)</div>
+        <div class="item">IIM: long-duration (1 year+) degree/diploma programs</div>
+        <div class="item">ITIs in designated trades (Apprenticeship Act)</div>
+        <div class="item">Modular Employable Skill courses (NCVT approved)</div>
+        <div class="item">Eligibility/migration certificate fees by institutions</div>
+      </div>
+      <div class="taxable-col">
+        <div class="col-head t">Taxable</div>
+        <div class="item">Transport to degree college (not pre-school/higher secondary)</div>
+        <div class="item">Catering to degree/medical college students</div>
+        <div class="item">Housekeeping to degree college</div>
+        <div class="item">IIM: short-duration (under 1 year) executive programs</div>
+        <div class="item">Private tuitions</div>
+        <div class="item">Campus placement fees from employers</div>
+        <div class="item">Coaching for board + competitive exams combined</div>
+        <div class="item">Personality development / communication skills institutes</div>
+        <div class="item">Renting property to coaching centre or higher secondary school</div>
+        <div class="item">Foreign courses by private institutes</div>
+        <div class="item">Third-party catering in college hostel mess</div>
+        <div class="item">Development of course content (to any institution)</div>
+      </div>
+    </div>
+    <div class="trick"><strong>Key distinction:</strong> Services TO an institution providing only pre-school/up to higher secondary get transport + catering + security + cleaning exempt. For degree colleges: only admission/exam services and online journals (law-recognised only) are exempt. Everything else is taxable.</div>
+  </div>
+</div>
+
+<div id="panel-health" class="panel">
+  <div class="rule-box">
+    <div class="rule-title">Healthcare Services</div>
+    <div class="rule-sub">Memory hook: <strong>"Cure and care = exempt. Cosmetics and commerce = taxable."</strong> If it's in a recognised system of medicine and for a genuine medical need, it's exempt.</div>
+    <div class="cols">
+      <div class="exempt-col">
+        <div class="col-head e">Exempt</div>
+        <div class="item">Clinical establishments / authorised doctors / paramedics</div>
+        <div class="item">Ambulance services</div>
+        <div class="item">Mortuary services</div>
+        <div class="item">Cord blood bank: preservation of stem cells</div>
+        <div class="item">Food to in-patients as advised by doctors</div>
+        <div class="item">Naturopathy / Ayurveda / Yoga / Homeopathy treatments</div>
+        <div class="item">Plastic surgery for accident/congenital defect restoration</div>
+        <div class="item">ART / IVF services</div>
+        <div class="item">Palliative care at patient's home</div>
+        <div class="item">Rooms for in-patients (below ₹5,000/day for non-ICU)</div>
+        <div class="item">Veterinary clinic services for animals/birds</div>
+        <div class="item">Bio-medical waste treatment</div>
+        <div class="item">Rehabilitation by recognised professionals (RCI Act)</div>
+      </div>
+      <div class="taxable-col">
+        <div class="col-head t">Taxable</div>
+        <div class="item">Hair transplant</div>
+        <div class="item">Cosmetic / plastic surgery (not for restoration)</div>
+        <div class="item">Pranic healing (not a recognised system)</div>
+        <div class="item">Food to non-admitted patients, attendants, visitors</div>
+        <div class="item">Room <span class="limit-pill" style="background:var(--color-background-danger);color:var(--color-text-danger);">≥ ₹5,000/day</span> (non-ICU)</div>
+        <div class="item">Renting shops / auditoriums in hospital premises</div>
+        <div class="item">Advertisement display in hospital</div>
+      </div>
+    </div>
+    <div class="trick"><strong>Trap question:</strong> Cord blood bank — despite being in a hospital, preservation of stem cells is <em>taxable</em>. It's a storage service, not a healthcare treatment. Similarly, pranic healing sounds medical but isn't recognised — taxable.</div>
+  </div>
+</div>
+
+<div id="panel-govt" class="panel">
+  <div class="rule-box">
+    <div class="rule-title">Government Services — BY and TO Government</div>
+    <div class="rule-sub">Memory hook: <strong>"Sovereign acts = exempt. Business acts = taxable."</strong> Three always-taxable government services: (1) aircraft/vessel in ports, (2) transport of goods/passengers, (3) services to business entities other than sovereign functions.</div>
+    <div class="cols">
+      <div class="exempt-col">
+        <div class="col-head e">Exempt (sovereign / welfare)</div>
+        <div class="item">Panchayat / Municipality functions (Article 243G / 243W)</div>
+        <div class="item">Basic postal services (postcard, book post, &lt;10g envelopes)</div>
+        <div class="item">Money orders, savings accounts, postal orders, pension</div>
+        <div class="item">Passport, visa, driving license, birth/death certificate</div>
+        <div class="item">Registration required under any law</div>
+        <div class="item">Fines and penalties for statutory violations</div>
+        <div class="item">General insurance where premium paid by State Govt</div>
+        <div class="item">Old age homes (Govt run) <span class="limit-pill">≤ ₹25k/month</span></div>
+        <div class="item">Assignment of natural resource rights to individual farmer</div>
+        <div class="item">Pure services to Govt for Panchayat/Municipality functions</div>
+        <div class="item">Services where consideration ≤ ₹5,000</div>
+      </div>
+      <div class="taxable-col">
+        <div class="col-head t">Taxable (commercial acts)</div>
+        <div class="item">Speed post, express parcel to non-Govt</div>
+        <div class="item">Distribution of mutual funds, bonds by post office</div>
+        <div class="item">Passport application collection (commission basis)</div>
+        <div class="item">Police / security to private business (RCM on recipient)</div>
+        <div class="item">Services to business entities other than sovereign functions</div>
+        <div class="item">Renting immovable property to business entities</div>
+        <div class="item">Services in/around airport or port (aircraft/vessel)</div>
+        <div class="item">Natural resources to companies (exploration royalty)</div>
+        <div class="item">Works contract services to Govt</div>
+        <div class="item">Composite supply with goods &gt; 25% of value</div>
+      </div>
+    </div>
+    <div class="trick"><strong>The 3 always-taxables:</strong> Regardless of who the recipient is, these three government services are always taxable — (1) aircraft/vessel in airport/port, (2) transport of goods or passengers, (3) services like speed post or insurance to non-Govt. Memorise these three and you'll handle any trick question.</div>
+  </div>
+</div>
+
+<div id="panel-transport" class="panel">
+  <div class="rule-box">
+    <div class="rule-title">Transport Services — Passenger & Goods</div>
+    <div class="rule-sub">Memory hook for passengers: <strong>AC = taxable, non-AC = exempt (with exceptions). E-commerce changes the game.</strong> Memory hook for goods: <strong>GTA with consignment note = potentially taxable. Without note = always exempt.</strong></div>
+    <div class="cols">
+      <div class="exempt-col">
+        <div class="col-head e">Exempt</div>
+        <div class="item">Non-AC stage carriage (not via e-commerce)</div>
+        <div class="item">Non-AC contract carriage (not via e-commerce, not tourism)</div>
+        <div class="item">Railways: non-first class, non-AC (not via e-commerce)</div>
+        <div class="item">Metro, monorail, tramway</div>
+        <div class="item">Inland waterways</div>
+        <div class="item">Economy class — NE states & Bagdogra</div>
+        <div class="item">Metered cab / auto (not via e-commerce)</div>
+        <div class="item">GTA: agricultural produce, milk, rice, flour, pulses, salt</div>
+        <div class="item">GTA: relief material, military equipment, newspapers</div>
+        <div class="item">GTA: single consignment ≤ ₹1,500 or single consignee ≤ ₹750</div>
+        <div class="item">Transport by road (not GTA — no consignment note)</div>
+        <div class="item">Air freight: outside India → customs clearance in India</div>
+        <div class="item">Satellite launch (ISRO, Antrix, NSIL)</div>
+      </div>
+      <div class="taxable-col">
+        <div class="col-head t">Taxable</div>
+        <div class="item">AC stage carriage</div>
+        <div class="item">Radio taxi</div>
+        <div class="item">Tourism, charter, hire</div>
+        <div class="item">Railways: first class or AC (not via e-commerce)</div>
+        <div class="item">Cruise / leisure / charter vessels</div>
+        <div class="item">Ropeway, cable car, aerial tramway</div>
+        <div class="item">Non-AC carriage / auto via e-commerce operator</div>
+        <div class="item">Air freight: India → outside India (after Sep 2022)</div>
+        <div class="item">GTA: courier, angadia, express cargo</div>
+        <div class="item">GTA: household effects, tea, sugar, petroleum, alcohol</div>
+        <div class="item">GTA to unregistered person: Exempt (watch this!)</div>
+      </div>
+    </div>
+    <div class="trick"><strong>E-commerce trap:</strong> Any transport service notified under Sec 9(5) and provided via e-commerce operator becomes taxable, even if the same service by the operator directly is exempt. Non-AC auto by driver = exempt; via Ola/Uber = taxable. This is a very common MCQ trap.</div>
+  </div>
+</div>
+
+<div id="panel-finance" class="panel">
+  <div class="rule-box">
+    <div class="rule-title">Banking, Insurance & Financial Services</div>
+    <div class="rule-sub">Memory hook: <strong>"Interest and discount = exempt (money for money). Fees and commissions = taxable (service charge on top)."</strong></div>
+    <div class="cols">
+      <div class="exempt-col">
+        <div class="col-head e">Exempt</div>
+        <div class="item">Interest on loans, advances, deposits, overdrafts</div>
+        <div class="item">Interest on corporate/fixed/savings deposits</div>
+        <div class="item">Invoice / cheque discounting (to extent of discount)</div>
+        <div class="item">Delayed payment charges (brokerage/margin)</div>
+        <div class="item">Sale/purchase of foreign currency between banks</div>
+        <div class="item">All services BY RBI</div>
+        <div class="item">BSBD accounts under Jan Dhan Yojana</div>
+        <div class="item">Acquiring bank: transactions ≤ ₹2,000 (credit/debit card)</div>
+        <div class="item">Life insurance: NPS, Army/Navy/Air Force group schemes</div>
+        <div class="item">Life insurance: Janashree Bima, Pradhan Mantri schemes</div>
+        <div class="item">General insurance: govt schemes (PMFBY, RWCIS, etc.)</div>
+        <div class="item">Atal Pension Yojana, State pension contribution collection</div>
+        <div class="item">ESIC, EPFO, NPS Trust, SEBI, IRDAI services</div>
+        <div class="item">Business correspondent to bank (rural area)</div>
+      </div>
+      <div class="taxable-col">
+        <div class="col-head t">Taxable</div>
+        <div class="item">Processing fees / service charges on loans</div>
+        <div class="item">Documentation fees, broking charges</div>
+        <div class="item">Bank guarantee commission</div>
+        <div class="item">Minimum balance charges</div>
+        <div class="item">Credit card interest (specifically excluded from exemption)</div>
+        <div class="item">All services TO RBI</div>
+        <div class="item">Service charges on derivative/forward contracts</div>
+      </div>
+    </div>
+    <div class="trick"><strong>One exception to remember:</strong> Interest is always exempt — EXCEPT credit card interest. That one is taxable. Every exam has a question trapping students on this. Also: RBI services = exempt. Services TO RBI = taxable. Flip it and you fail.</div>
+  </div>
+</div>
+
+<div id="panel-others" class="panel">
+  <div class="rule-box">
+    <div class="rule-title">Miscellaneous — Artist, Legal, RWA, Events, Others</div>
+    <div class="rule-sub">A collection of threshold-based and purpose-based rules.</div>
+    <div class="cols">
+      <div class="exempt-col">
+        <div class="col-head e">Exempt</div>
+        <div class="item">Folk/classical music, dance, theatre <span class="limit-pill">≤ ₹1.5 lakh</span></div>
+        <div class="item">Advocate (non-senior) to non-business or unregistered entity</div>
+        <div class="item">Senior advocate to non-business or govt bodies</div>
+        <div class="item">Arbitral tribunal to non-business/unregistered entity</div>
+        <div class="item">RWA maintenance <span class="limit-pill">≤ ₹7,500/month/member</span></div>
+        <div class="item">Museum, national park, wildlife sanctuary entry</div>
+        <div class="item">Circus/concert/sports entry <span class="limit-pill">≤ ₹500/person</span></div>
+        <div class="item">Sponsorship of sports by recognised federations</div>
+        <div class="item">Player/coach/referee to recognised sports body</div>
+        <div class="item">Transfer of going concern</div>
+        <div class="item">Renting residential dwelling (non-registered person)</div>
+        <div class="item">Hotel/inn ≤ ₹1,000/day</div>
+        <div class="item">Toll charges / annuity on roads</div>
+        <div class="item">Electricity transmission by utility</div>
+        <div class="item">Slaughtering of animals</div>
+        <div class="item">Public toilets / washrooms / lavatories</div>
+        <div class="item">RTI information service</div>
+      </div>
+      <div class="taxable-col">
+        <div class="col-head t">Taxable</div>
+        <div class="item">Artist as brand ambassador (even classical dance, any amount)</div>
+        <div class="item">Western music, modern theatre, film acting</div>
+        <div class="item">Painting, sculpture (still art forms)</div>
+        <div class="item">Advocate to registered business entity</div>
+        <div class="item">Senior advocate to registered firm of advocates</div>
+        <div class="item">Commentators, selectors, curators to sports body</div>
+        <div class="item">RWA maintenance &gt; ₹7,500/month/member (entire amount)</div>
+        <div class="item">Renting residential to registered person (RCM applies)</div>
+        <div class="item">Commission on toll receipts</div>
+        <div class="item">Construction of road (annuity consideration)</div>
+        <div class="item">Electricity connection charges, meter rental, testing fees</div>
+        <div class="item">Casino entry + betting/gambling</div>
+      </div>
+    </div>
+    <div class="trick"><strong>Brand ambassador trap:</strong> A classical dancer performing for ₹1.25 lakh = exempt. The same dancer performing as brand ambassador for a soap brand = taxable (regardless of amount or art form). The brand ambassador tag overrides everything. Also: RWA — if charges exceed ₹7,500, the ENTIRE amount is taxable, not just the excess.</div>
+  </div>
+</div>
+</div>
+<script>
+function show(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
