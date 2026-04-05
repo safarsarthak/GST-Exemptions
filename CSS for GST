@@ -1,0 +1,186 @@
+/* --- GLOBAL MOBILE-FIRST RESET --- */
+:root {
+  --primary-dark: #1a365d;    /* Deep Navy */
+  --primary-blue: #2b6cb0;    /* Classic Blue */
+  --accent-active: #ecc94b;   /* Golden Yellow for active tabs */
+  --bg-light: #f7fafc;        /* Very Light Blue-Grey */
+  --text-main: #2d3748;       /* Dark Charcoal for readability */
+  --text-muted: #4a5568;      /* Soft Grey-Blue */
+  --exempt-bg: #ebfbee;       /* Soft Green */
+  --exempt-text: #22543d;
+  --taxable-bg: #fff5f5;       /* Soft Red/Pink */
+  --taxable-text: #822727;
+  --border-radius: 12px;
+}
+
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  -webkit-tap-highlight-color: transparent;
+}
+
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.wrap { 
+  padding: 12px; 
+  max-width: 600px; /* Centered on larger mobile screens/tablets */
+  margin: 0 auto;
+}
+
+/* --- SCROLLABLE TABS --- */
+.tabs { 
+  display: flex; 
+  overflow-x: auto; /* Allow horizontal swipe for tabs */
+  gap: 8px; 
+  margin-bottom: 16px; 
+  padding-bottom: 8px;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+.tabs::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+
+.tab { 
+  flex: 0 0 auto; /* Prevent tabs from shrinking */
+  font-size: 13px; 
+  padding: 8px 16px; 
+  border: 1.5px solid var(--primary-blue); 
+  border-radius: 20px; 
+  cursor: pointer; 
+  color: var(--primary-blue); 
+  background: white; 
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.tab.active { 
+  background: var(--primary-dark); 
+  color: var(--accent-active); 
+  border-color: var(--primary-dark); 
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* --- CARD SYSTEM --- */
+.panel { display: none; animation: fadeIn 0.3s ease; }
+.panel.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rule-box { 
+  background: white; 
+  border-radius: var(--border-radius); 
+  padding: 16px; 
+  margin-bottom: 16px; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.rule-title { 
+  font-size: 18px; 
+  font-weight: 700; 
+  color: var(--primary-dark); 
+  margin-bottom: 6px; 
+}
+
+.rule-sub { 
+  font-size: 14px; 
+  color: var(--text-muted); 
+  margin-bottom: 16px; 
+}
+
+/* --- TWO-COLUMN STACKING (Mobile Friendly) --- */
+.cols { 
+  display: flex;
+  flex-direction: column; /* Stack on mobile */
+  gap: 12px; 
+}
+
+.exempt-col, .taxable-col { 
+  border-radius: var(--border-radius); 
+  padding: 12px; 
+}
+
+.exempt-col { 
+  background: var(--exempt-bg); 
+  border-left: 5px solid #48bb78; 
+}
+
+.taxable-col { 
+  background: var(--taxable-bg); 
+  border-left: 5px solid #f56565; 
+}
+
+.col-head { 
+  font-size: 12px; 
+  font-weight: 800; 
+  text-transform: uppercase; 
+  margin-bottom: 8px; 
+  display: flex;
+  align-items: center;
+}
+
+.col-head.e { color: var(--exempt-text); }
+.col-head.t { color: var(--taxable-text); }
+
+.item { 
+  font-size: 14px; 
+  padding: 8px 0; 
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.item:last-child { border-bottom: none; }
+
+/* --- PILLS & TRICKS --- */
+.limit-pill { 
+  display: inline-block; 
+  background: var(--primary-blue); 
+  color: white; 
+  border-radius: 4px; 
+  font-size: 11px; 
+  padding: 2px 6px; 
+  margin-left: 6px; 
+  font-weight: bold;
+}
+
+.trick { 
+  background: #fffaf0; /* Light Cream */
+  border: 1px dashed var(--accent-active);
+  border-radius: var(--border-radius); 
+  padding: 12px; 
+  margin-top: 15px; 
+  font-size: 14px; 
+  color: #744210; 
+  line-height: 1.5;
+}
+
+.trick strong { 
+  color: #975a16; 
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* --- PATTERN BOXES (Inside Master Logic) --- */
+.pattern-card {
+  background: #f8fafc;
+  border: 1px solid #edf2f7;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+/* --- TABLET/DESKTOP TWEAK --- */
+@media (min-width: 480px) {
+  .cols { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* Side by side on larger screens */
+  }
+}
